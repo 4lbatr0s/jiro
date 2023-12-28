@@ -1,10 +1,9 @@
-import { publicProcedure, router } from './trpc';
+import { authCallbackProcedure } from './controller';
+import { router } from './trpc';
  
 export const appRouter = router({
   //INFO: test is basically an api endpoint.
-  test:publicProcedure.query(()=> {
-    return new Response(JSON.stringify("test"));
-  })
+  authCallback: authCallbackProcedure
 });
  
 // Export type router type signature,

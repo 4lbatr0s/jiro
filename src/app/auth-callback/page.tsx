@@ -7,8 +7,13 @@ const AuthCallback = async () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const origin = searchParams.get("origin"); //dashboard.
-  const { data, isLoading } = trpc.test.useQuery(); //when the page loads, this is going to be fired.
+  const {data, isLoading} = await trpc.authCallback.useQuery();
+  if(data) 
+    router.push(origin ? `/${origin}` : `/dashboard`);
+  else
 
+  console.log("isLoading:", isLoading);
+  console.log("data:", data);
 };
 
 export default AuthCallback;
