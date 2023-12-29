@@ -1,9 +1,11 @@
-import { authCallbackProcedure } from './controller';
+import { authCallbackProcedure, deleteFileProcedure, getUserFilesProcedure } from './controller';
 import { router } from './trpc';
  
 export const appRouter = router({
   //INFO: test is basically an api endpoint.
-  authCallback: authCallbackProcedure
+  authCallback: authCallbackProcedure,
+  getUserFiles: getUserFilesProcedure,
+  deleteFile: deleteFileProcedure,
 });
  
 // Export type router type signature,

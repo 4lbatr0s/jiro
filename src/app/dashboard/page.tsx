@@ -1,16 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
+import { db } from "@/db";
+import Dashboard from "@/components/Dashboard";
 
-const Dashboard = async () => {
+const Page = async () => {
   //INFO: How to get values from Kinde
   const { getUser } = getKindeServerSession();
   const user = await getUser();
 
   //INFO: Eventual consistency.
   if (!user || !user.id) redirect("/auth-callback?origin=dashboard");
+  const dbUser = await db.user.findFirst({
+    where: {
+      id: user.id,
+    },
+  });
+  if (!dbUser) redirect("/auth-callback?origin=dashboard");
 
-  return <div>{user?.email}</div>;
+  return <Dashboard />;
 };
 
-export default Dashboard;
+export default Page;
