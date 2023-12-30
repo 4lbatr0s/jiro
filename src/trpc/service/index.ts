@@ -64,3 +64,20 @@ export const deleteFileService = async (input:{id:string}, userId:string) => {
     
   }
 }
+
+export const getFileService = async (input:{key:string}, userId:string) => {
+  try {
+    const file = await db.file.findFirst({
+      where:{
+        key:input.key,
+        userId,
+      }
+    })
+    if(!file){
+      throw new TRPCError({code:"NOT_FOUND"});
+    } 
+    return file;
+  } catch (error) {
+    throw new TRPCError({code:"INTERNAL_SERVER_ERROR"}) 
+  }
+}

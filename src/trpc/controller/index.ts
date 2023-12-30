@@ -3,6 +3,7 @@ import {
   authCallbackService,
   deleteFileService,
   getUserFilesService,
+  getFileService
 } from "../service";
 import { privateProcedure, publicProcedure } from "../trpc";
 import { z } from "zod";
@@ -29,4 +30,15 @@ export const deleteFileProcedure = privateProcedure
   .mutation(async ({ ctx, input }) => {
     const { userId } = ctx;
     return await deleteFileService(input, userId);
+  });
+
+
+//INFO: THIS PROCEDURE WILL BE USED TO DO POLLINGS!
+export const getFileProcedure = privateProcedure
+  .input(
+    z.object({ key: z.string() })
+  )  //again, ctx comes from middleware.
+  .mutation(async ({ ctx, input }) => {
+    const { userId } = ctx;
+    return await getFileService(input, userId);
   });

@@ -18,7 +18,7 @@ export const isAuth = middleware(async (opts) => {
     }
   
     {
-      /*INFO: ctx is context, helps us to send any type of value to the procedure */
+    /*INFO: ctx is context, helps us to send any type of value to the procedure */
     }
     return opts.next({
       ctx: {
