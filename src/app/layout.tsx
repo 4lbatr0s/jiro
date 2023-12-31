@@ -6,6 +6,7 @@ import Navbar from "@/components/Navbar";
 import Providers from "@/components/Providers";
 
 import "react-loading-skeleton/dist/skeleton.css"; //INFO: Imported css here in order to use it in all components.
+import "simplebar-react/dist/simplebar.min.css";//to prevent simplebar to crush.
 import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
