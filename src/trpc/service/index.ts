@@ -1,7 +1,7 @@
 //INFO: Service implementations for trpc.
 
 import { db } from "@/db";
-import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server'
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { TRPCError } from "@trpc/server";
 
 export const authCallbackService = async () => {
@@ -29,21 +29,23 @@ export const authCallbackService = async () => {
   return { success: true };
 };
 
-
 export const getUserFilesService = async (userId: string) => {
   try {
     return await db.file.findMany({
       where: {
         userId: userId,
       },
-    })
+    });
   } catch (error) {
     console.error("Error in getUserFilesService:", error);
     throw new TRPCError({ code: "INTERNAL_SERVER_ERROR" });
   }
 };
 
-export const deleteFileService = async (input:{id:string}, userId:string) => { 
+export const deleteFileService = async (
+  input: { id: string },
+  userId: string
+) => {
   try {
     const file = await db.file.findFirst({
       where: {
@@ -60,24 +62,45 @@ export const deleteFileService = async (input:{id:string}, userId:string) => {
     });
 
     return file;
-  } catch (error) {
-    
-  }
-}
+  } catch (error) {}
+};
 
-export const getFileService = async (input:{key:string}, userId:string) => {
+export const getFileService = async (
+  input: { key: string },
+  userId: string
+) => {
   try {
     const file = await db.file.findFirst({
-      where:{
-        key:input.key,
+      where: {
+        key: input.key,
         userId,
-      }
-    })
-    if(!file){
-      throw new TRPCError({code:"NOT_FOUND"});
-    } 
+      },
+    });
+    if (!file) {
+      throw new TRPCError({ code: "NOT_FOUND" });
+    }
     return file;
   } catch (error) {
-    throw new TRPCError({code:"INTERNAL_SERVER_ERROR"}) 
+    throw new TRPCError({ code: "INTERNAL_SERVER_ERROR" });
   }
-}
+};
+
+export const getFileUploadStatusService = async (
+  fileId: string,
+  userId: string
+) => {
+  try {
+    const file = await db.file.findFirst({
+      where: {
+        id: fileId,
+        userId,
+      },
+    });
+    if (!file) {
+      return { status: "PENDING" as const }; //INFO: as const: we want status to be exactly the "PENDING"
+    }
+    return { status: file.uploadStatus };
+  } catch (error) {
+    throw new TRPCError({ code: "INTERNAL_SERVER_ERROR" });
+  }
+};

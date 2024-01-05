@@ -1,4 +1,4 @@
-import { authCallbackProcedure, deleteFileProcedure, getUserFilesProcedure, getFileProcedure} from './controller';
+import { authCallbackProcedure,getFielUploadStatusProcedure, deleteFileProcedure, getUserFilesProcedure, getFileProcedure} from './controller';
 import { router } from './trpc';
  
 export const appRouter = router({
@@ -7,6 +7,7 @@ export const appRouter = router({
   getUserFiles: getUserFilesProcedure,
   deleteFile: deleteFileProcedure,
   getFile: getFileProcedure,
+  getFileUploadStatus: getFielUploadStatusProcedure,
 });
  
 

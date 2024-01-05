@@ -25,7 +25,7 @@ const UploadDropzone = () => {
     retryDelay: 500, //INFO: HOW TO DO POLLING!
   });
 
-  //INFO: DETERMINATE PROGRESS BAR
+  //INFO: DETERMINATE PROGRESS BAR: a progress bar approach that will serve more user friendly design.
   const startSimulatedProgress = () => {
     setUploadProgress(0);
 

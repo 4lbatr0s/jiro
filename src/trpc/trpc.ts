@@ -24,7 +24,6 @@ export const isAuth = middleware(async (opts) => {
       ctx: {
         userId: user.id,
         user,
-        name: "john",
       },
     });
   });

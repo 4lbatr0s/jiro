@@ -3,7 +3,8 @@ import {
   authCallbackService,
   deleteFileService,
   getUserFilesService,
-  getFileService
+  getFileService,
+  getFileUploadStatusService
 } from "../service";
 import { privateProcedure, publicProcedure } from "../trpc";
 import { z } from "zod";
@@ -15,7 +16,7 @@ export const authCallbackProcedure = publicProcedure.query(async () => {
 
 //INFO: How to use private procedure.
 export const getUserFilesProcedure = privateProcedure.query(async ({ ctx }) => {
-  const { name, userId, user } = ctx;
+  const { userId, user } = ctx;
   return await getUserFilesService(userId);
 });
 
@@ -41,4 +42,13 @@ export const getFileProcedure = privateProcedure
   .mutation(async ({ ctx, input }) => {
     const { userId } = ctx;
     return await getFileService(input, userId);
+  });
+
+
+export const getFielUploadStatusProcedure = privateProcedure
+  .input(
+    z.object({ fileId: z.string() })
+  ).query(async ({ ctx, input }) => {
+    const {fileId} = input;
+    return await getFileUploadStatusService(fileId, ctx.userId );
   });
