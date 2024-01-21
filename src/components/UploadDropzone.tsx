@@ -10,12 +10,12 @@ import { useRouter } from "next/navigation";
 //INFO: How to import pdf in react.
 const UploadDropzone = () => {
   const router = useRouter();
-
-  const [isUploading, setIsUploading] = useState<boolean>(true);
+  
+  const [isUploading, setIsUploading] = useState<boolean>(false);
   const [uploadProgress, setUploadProgress] = useState<number>(0);
 
   const { startUpload } = useUploadThing("pdfUploader");
-
+  console.log("isUploading:", isUploading);
   //if file is uploaded, route to the details
   const { mutate: startPolling } = trpc.getFile.useMutation({
     onSuccess: (file) => {

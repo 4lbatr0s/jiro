@@ -4,7 +4,8 @@ import {
   deleteFileService,
   getUserFilesService,
   getFileService,
-  getFileUploadStatusService
+  getFileUploadStatusService,
+  getFileMessagesService,
 } from "../service";
 import { privateProcedure, publicProcedure } from "../trpc";
 import { z } from "zod";
@@ -52,3 +53,17 @@ export const getFielUploadStatusProcedure = privateProcedure
     const {fileId} = input;
     return await getFileUploadStatusService(fileId, ctx.userId );
   });
+
+
+export const getFileMessagesProcedure = privateProcedure
+.input(
+  z.object({
+     limit: z.number().min(1).max(100).nullish(),
+     cursor:z.string().nullish(), //INFO: We are going to use this cursor for infinite query. 
+     fileId:z.string()
+  })
+).query(async ({ ctx, input }) => {
+  return await getFileMessagesService(input, ctx.userId );
+});
+
+

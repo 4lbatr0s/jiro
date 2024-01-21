@@ -1,5 +1,6 @@
 //INFO: Service implementations for trpc.
 
+import { INFINITE_QUERY_LIMIT } from "@/config/infinite-query";
 import { db } from "@/db";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { TRPCError } from "@trpc/server";
@@ -102,5 +103,50 @@ export const getFileUploadStatusService = async (
     return { status: file.uploadStatus };
   } catch (error) {
     throw new TRPCError({ code: "INTERNAL_SERVER_ERROR" });
+  }
+};
+
+export const getFileMessagesService = async (
+  input: {fileId:string, cursor?:string | null, limit?:number | null },
+  userId: string
+) => {
+  const {fileId, cursor} = input;
+  const limit = input.limit ?? INFINITE_QUERY_LIMIT;
+
+  const file = await db.file.findFirst({
+    where:{
+      id:fileId,
+      userId,
+    }
+  })
+
+  if(!file) throw new TRPCError({code:'NOT_FOUND'});
+
+  const messages = await db.message.findMany({
+    take:limit+1,
+    where:{
+      fileId
+    },
+    orderBy:{
+      createdAt:'desc'
+    },
+    //INFO: HOW: INFINITE QUERY IN DB!
+    cursor: cursor ? {id: cursor} : undefined,
+    select: {
+      id:true,
+      isUserMessage:true,
+      createdAt:true,
+      text:true
+    }
+  }, 
+  )
+  //determine which message is the cursor
+  let nextCursor:typeof cursor | undefined = undefined
+  if(messages.length > limit) {
+    const nextItem = messages.pop()
+    nextCursor = nextItem?.id 
+  }
+  return {
+    messages,nextCursor 
   }
 };
