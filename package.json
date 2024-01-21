@@ -1,6 +1,7 @@
 {
   "name": "jiro",
   "version": "0.1.0",
+  "author": {"name": "serhat oner", "email": "serhatoner@protonmail.com", "url": "serhatcodes.com"},
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -22,6 +23,7 @@
     "@radix-ui/react-progress": "^1.0.3",
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-toast": "^1.1.5",
+    "@radix-ui/react-tooltip": "^1.0.7",
     "@tailwindcss/typography": "^0.5.10",
     "@tanstack/react-query": "^4.36.1",
     "@trpc/client": "^10.44.1",
@@ -49,6 +51,7 @@
     "react-resize-detector": "^9.1.1",
     "react-textarea-autosize": "^8.5.3",
     "simplebar-react": "^3.2.4",
+    "stripe": "^14.13.0",
     "tailwind-merge": "^2.1.0",
     "tailwindcss-animate": "^1.0.7",
     "uploadthing": "^6.1.0",
