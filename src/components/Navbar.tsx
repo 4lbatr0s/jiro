@@ -5,6 +5,7 @@ import { buttonVariants } from "./ui/button";
 import { LoginLink, RegisterLink, getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server"; //INFO: We use this to create login <button className=""></button>
 import { ArrowRight } from "lucide-react";
 import UserAccountNav from "./UserAccountNav";
+import MobileNav from "./MobileNav";
 const Navbar = async () => {
   const {getUser} = getKindeServerSession();
   const user = await getUser();
@@ -16,7 +17,8 @@ const Navbar = async () => {
           <Link href="/" className="flex z-40 font-semibold">
             <span>jiro.</span>
           </Link>
-          {/*TODO: add mobile navbar */}
+          <MobileNav isAuth={!!user}/>
+
           <div className="hidden items-center space-x-4 sm:flex">
             {!user ? <>
               <Link

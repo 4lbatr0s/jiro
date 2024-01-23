@@ -41,10 +41,10 @@ export function constructMetadata({
       title,
       description,
       images: [image],
-      creator: "@4lbatr0ss",
+      creator: "@4lbatr0s",
     },
     icons,
-    metadataBase: new URL("https://www.jiro.com"),
+    metadataBase: new URL("https://jiro-omega.vercel.app"),
     themeColor: "#FFF",
     ...(noIndex && {
       robots: {
