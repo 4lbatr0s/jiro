@@ -6,10 +6,16 @@ import './globals.css'
 
 import 'react-loading-skeleton/dist/skeleton.css'
 import 'simplebar-react/dist/simplebar.min.css'
+import type { Viewport } from 'next'
 
 import { Toaster } from '@/components/ui/toaster'
 
 const inter = Inter({ subsets: ['latin'] })
+
+export const viewport: Viewport = {
+  themeColor: 'FFF',
+}
+ 
 
 export const metadata = constructMetadata()
 
