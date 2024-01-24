@@ -16,7 +16,7 @@ export function constructMetadata({
   title = "Jiro - Speak to your documents",
   description = "Jiro is an open-source software to make chatting to your PDF files easy.",
   image = "/thumbnail.png",
-  icons = "/favicon.ico",
+  icons = "/thumbnail.png",
   noIndex = false,
 }: {
   title?: string;
